@@ -1,0 +1,12 @@
+{
+  "project": "semantic-cache-gateway",
+  "resource": "entries",
+  "samples": [
+    {
+      "id": "sc1",
+      "query": "What is RAG?",
+      "response": "Retrieval Augmented Generation",
+      "hits": 4
+    }
+  ]
+}
