@@ -1,0 +1,13 @@
+[project]
+name = "semantic-cache-gateway"
+version = "2.0.0"
+description = "LLM gateway with lexical similarity cache hits, miss passthrough to providers, and hit/miss analytics — reduce cost/latency for near-duplicate prompts."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

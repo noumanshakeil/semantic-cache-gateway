@@ -1,1 +1,2 @@
-"""Backend package."""
+"""Semantic Cache Gateway application package."""
+__version__ = "2.0.0"

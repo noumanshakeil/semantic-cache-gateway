@@ -1,53 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ title }}</title>
-  <link rel="stylesheet" href="/static/styles.css" />
-</head>
-<body>
-  <main>
-    <h1>{{ title }}</h1>
-    <p class="sub">{{ description }} · LLM <span class="pill">{{ llm_mode }}</span></p>
-    <div class="grid">
-      <section class="card">
-        <h2>Create entry</h2>
-        <form method="post" action="/ui/create">
-        <label>query</label><input name="query" placeholder="query" required />
-<label>response</label><input name="response" placeholder="response" required />
-<label>embedding_hint</label><input name="embedding_hint" placeholder="embedding_hint" required />
-          <button type="submit">Save</button>
-        </form>
-        <h2 style="margin-top:1.25rem">AI action: {{ action }}</h2>
-        <p class="sub">{{ action_desc }}</p>
-        <form method="post" action="/ui/action">
-          <label>prompt</label>
-          <textarea name="prompt" rows="4" placeholder="Describe what you need..."></textarea>
-          <button type="submit">Run {{ action }}</button>
-        </form>
-        {% if last_result %}
-        <h3>Last result</h3>
-        <pre>{{ last_result }}</pre>
-        {% endif %}
-      </section>
-      <section class="card">
-        <h2>{{ resource }} ({{ items|length }})</h2>
-        <table>
-          <thead><tr><th>id</th><th>data</th></tr></thead>
-          <tbody>
-          {% for item in items %}
-            <tr>
-              <td>{{ item.id }}</td>
-              <td><code>{{ item }}</code></td>
-            </tr>
-          {% else %}
-            <tr><td colspan="2">No items yet</td></tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </section>
-    </div>
-  </main>
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset="utf-8"/><title>{{ title }}</title>
+<link rel="stylesheet" href="/static/styles.css"/></head><body><main>
+<h1>{{ title }}</h1><p class="sub">Lexical similarity cache with hit/miss analytics.</p>
+<div class="grid">
+<section class="card"><h2>Complete</h2><form method="post" action="/ui/complete"><textarea name="prompt" rows="4">{{ prompt or '' }}</textarea><button type="submit">Send</button></form>
+{% if result %}<p class="pill">{{ result.cache }}</p> sim {{ result.similarity }}<pre>{{ result.response }}</pre>{% endif %}
+<h3>Analytics</h3><p>{{ analytics.hits }} hits / {{ analytics.queries }} queries ({{ '%.0f'|format(analytics.hit_rate*100) }}%)</p>
+</section>
+<section class="card"><h2>Entries</h2><ul>{% for e in entries %}<li><span class="pill">{{ e.hits }} hits</span> {{ e.prompt_raw[:100] }}</li>{% else %}<li class="sub">Empty cache.</li>{% endfor %}</ul></section>
+</div></main></body></html>
